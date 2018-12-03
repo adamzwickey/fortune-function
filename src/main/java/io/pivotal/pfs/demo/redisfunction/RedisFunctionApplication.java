@@ -7,7 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.Function;
 
 @SpringBootApplication
@@ -25,7 +28,13 @@ public class RedisFunctionApplication {
 		return f ->  {
 			if("random".equalsIgnoreCase(f)) {
 				LOG.info("Retrieving Random fortune");
-				return new Fortune("People are naturally attracted to you.");
+				List<Fortune> fortunes = new ArrayList<>();
+				_repository.findAll().forEach(fortune -> fortunes.add(fortune));
+				if(fortunes.isEmpty()) return null;
+
+				Fortune fortune = fortunes.get(new Random().nextInt(fortunes.size()));
+				LOG.debug("Fortune-[" + f + "]");
+				return fortune;
 			} else {
 				LOG.info("Retrieving Fortune: " + f);
 
