@@ -28,6 +28,7 @@ public class RedisFunctionApplication {
 				return new Fortune("People are naturally attracted to you.");
 			} else {
 				LOG.info("Retrieving Fortune: " + f);
+
 				Optional<Fortune> op =  _repository.findById(f);
 				if (op.isPresent()) return op.get();
 				return new Fortune("You are unlucky today");
@@ -35,8 +36,12 @@ public class RedisFunctionApplication {
 		};
 	}
 
-//	@Bean
-//	public Function<Fortune, Fortune> saveFortune() {
-//		return f ->  f;
-//	}
+	@Bean
+	public Function<String, Fortune> saveFortune() {
+		return f ->  {
+			LOG.info("Saving Fortune: " + f);
+			Fortune fortune = _repository.save(new Fortune(f));
+			return fortune;
+		};
+	}
 }
