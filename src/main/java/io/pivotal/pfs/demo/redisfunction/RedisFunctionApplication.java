@@ -20,9 +20,9 @@ public class RedisFunctionApplication {
 	@Autowired private FortuneRepository _repository;
 
 	@Bean
-	public Function<Long,Fortune> getFortune() {
+	public Function<String,Fortune> getFortune() {
 		return f ->  {
-			if(f == null) {
+			if("random".equalsIgnoreCase(f)) {
 				LOG.info("Retrieving Random fortune");
 				return new Fortune("People are naturally attracted to you.");
 			} else {
@@ -32,8 +32,8 @@ public class RedisFunctionApplication {
 		};
 	}
 
-	@Bean
-	public Function<Fortune, Fortune> saveFortune() {
-		return f ->  f;
-	}
+//	@Bean
+//	public Function<Fortune, Fortune> saveFortune() {
+//		return f ->  f;
+//	}
 }
