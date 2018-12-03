@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 @SpringBootApplication
@@ -27,7 +28,9 @@ public class RedisFunctionApplication {
 				return new Fortune("People are naturally attracted to you.");
 			} else {
 				LOG.info("Retrieving Fortune: " + f);
-				return new Fortune("People are naturally attracted to you.");
+				Optional<Fortune> op =  _repository.findById(f);
+				if (op.isPresent()) return op.get();
+				return new Fortune("You are unlucky today");
 			}
 		};
 	}
