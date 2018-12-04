@@ -46,6 +46,12 @@ public class RedisFunctionApplication {
 	}
 
 	@Bean
+	public Function<String,Iterable<Fortune>> allFortunes() {
+		LOG.info("Retrieving all fortunes");
+		return f -> _repository.findAll();
+	}
+
+	@Bean
 	public Function<String, Fortune> saveFortune() {
 		return f ->  {
 			LOG.info("Saving Fortune: " + f);
