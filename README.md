@@ -35,3 +35,10 @@ curl save-fortune.default.pfs.public.cloud.zwickey.net -H 'Content-Type: text/pl
 curl fortune.default.pfs.public.cloud.zwickey.net -H 'Content-Type: text/plain' -d random
 {"id":"2f1f4cbe-64af-429f-8f52-1a503b71ade4","text":"Things are looking up"}
 ```
+7. Push the web UI
+```bash
+cd ui
+cf push ui -m 64M -b staticfile_buildpack
+cf set-env ui BACKEND default.pfs.public.cloud.zwickey.net
+cf restage ui
+```
