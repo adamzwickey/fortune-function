@@ -1,0 +1,8 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: redis-external
+spec:
+  addresses:
+  - 192.168.4.18
+  location: MESH_EXTERNAL

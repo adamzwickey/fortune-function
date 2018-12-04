@@ -1,0 +1,11 @@
+apiVersion: servicecatalog.k8s.io/v1beta1
+kind: ClusterServiceBroker
+metadata:
+  name: pcf-redis-broker
+spec:
+  url: https://redis-broker.run.public.cloud.zwickey.net
+  authInfo:
+    basic:
+      secretRef:
+        namespace: default
+        name: redis-broker
