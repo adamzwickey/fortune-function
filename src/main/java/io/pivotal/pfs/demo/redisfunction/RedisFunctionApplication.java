@@ -48,7 +48,10 @@ public class RedisFunctionApplication {
 	@Bean
 	public Function<String,Iterable<Fortune>> allFortunes() {
 		LOG.info("Retrieving all fortunes");
-		return f -> _repository.findAll();
+		return f -> {
+			if("clear".equalsIgnoreCase(f)) _repository.deleteAll();
+			return _repository.findAll();
+		};
 	}
 
 	@Bean
