@@ -15,6 +15,12 @@ pfs function create fortune \
   --handler getFortune --verbose \
 --env-from SPRING_REDIS_HOST=secretKeyRef:r-secret:host --env-from SPRING_REDIS_PORT=secretKeyRef:r-secret:port --env-from SPRING_REDIS_PASSWORD=secretKeyRef:r-secret:password
 
+pfs function create fortunes \
+  --git-repo https://github.com/azwickey-pivotal/fortune-function.git \
+  --image gcr.io/$GCP_PROJECT/fortunes \
+  --handler allFortunes --verbose \
+--env-from SPRING_REDIS_HOST=secretKeyRef:r-secret:host --env-from SPRING_REDIS_PORT=secretKeyRef:r-secret:port --env-from SPRING_REDIS_PASSWORD=secretKeyRef:r-secret:password
+
 pfs function create save-fortune \
   --git-repo https://github.com/azwickey-pivotal/fortune-function.git \
   --image gcr.io/$GCP_PROJECT/save-fortune \
